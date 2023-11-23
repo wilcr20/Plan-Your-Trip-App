@@ -1,0 +1,56 @@
+<ion-content [fullscreen]="true">
+
+  <div class="main">
+    <form>
+      <div class="formItem">
+        <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Ingrese el nombre para el viaje"
+          type="text">
+        <div class="divError">
+          <span class="error" *ngIf="isNameRequired">
+            Debe ingresar un nombre para el viaje.
+          </span>
+        </div>
+      </div>
+
+      <div class="formItem">
+        <textarea [(ngModel)]="description" [ngModelOptions]="{standalone: true}" rows="4" cols="50"
+          placeholder="Ingrese una descripción para el viaje" type="text"></textarea>
+      </div>
+
+      <div class="formItem">
+        <div>
+          <label for="">Fecha de inicio</label>
+          <input [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" type="date" name="">
+          <div class="divError">
+            <span class="error" *ngIf="isStartDateRequired">
+              Debe ingresar la fecha de inicio.
+            </span>
+          </div>
+        </div>
+        <br>
+        <div>
+          <label for="">Fecha final</label>
+          <input [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" type="date" name="">
+          <div class="divError">
+            <span class="error" *ngIf="isEndDateRequired">
+              Debe ingresar la fecha final.
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="actionButtons">
+      <button class="createTrip" (click)="createTrip()">
+        Agregar viaje
+      </button>
+      <button class="cancel" (click)="redirectToHomePage()">
+        Cancelar
+      </button>
+    </div>
+
+
+
+  </div>
+
+
+</ion-content>

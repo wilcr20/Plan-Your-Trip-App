@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+
+  <div class="main">
+    <div class="noTrips" *ngIf="trips && trips.length == 0">
+      <h4>Aún no tienes viajes programados/en progreso.</h4>
+      <br>
+      <img src="../../assets/no_trips.png" width="50%" alt="" srcset="">
+      <br>
+      <button class="createTrip" (click) = "redirectToCreateTripView()">
+        Agregar nuevo viaje
+      </button>
+    </div>
+    <div class="listTrips" *ngIf="trips && trips.length > 0">
+      <button class="createTrip" (click) = "redirectToCreateTripView()">
+        Agregar nuevo viaje
+      </button>
+      <br>
+      <br>
+
+      <ion-card *ngFor="let trip of trips">
+        <ion-card-header>
+          <ion-card-title *ngIf="trip.name">{{trip.name}}</ion-card-title>
+          <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+        </ion-card-header>
+      
+        <ion-card-content *ngIf="trip.description">
+          {{trip.description}}
+        </ion-card-content>
+        <small *ngIf="trip.startDate">Fecha de inicio: {{trip.startDate}}</small><br>
+        <small *ngIf="trip.endDate">Fecha final: {{trip.endDate}}</small>
+      </ion-card>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,45 @@
+.main {
+    margin: 0 1em 0 1em;
+    position: relative;
+    text-align: center;
+
+    button.createTrip {
+        font-size: 20px;
+        border: 2px solid black;
+        background: #8ffb8f;
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 6px 10px;
+        margin-top: 10%;
+    }
+
+    .noTrips {
+        top: 20%;
+        position: fixed;
+        left: 0;
+        margin: 0 1em;
+        right: 0;
+
+        h4 {
+            font-family: cursive;
+        }       
+    }
+
+    .listTrips {
+        ion-card {
+            padding-bottom: 15px;
+            --background: #000;
+            --color: white;
+          }
+          
+          ion-card-title {
+            --color: orange;
+          }
+          
+          ion-card-subtitle {
+            --color: #d1fff8;
+          }
+    }
+
+
+}
