@@ -1,0 +1,35 @@
+.main {
+    margin: 2em 1em;
+    text-align: center;
+
+    h1 {
+        color: blue;
+    }
+
+    .item {
+        border: 2px solid gray;
+        border-radius: 15px;
+        text-align: start;
+        padding-left: 10px;
+        margin-bottom: 1em;
+
+        .iconState {
+            float: right;
+            margin-top: -3em;
+            width: auto;
+            margin-right: 5px;
+
+            img {
+                width: 15%;
+                margin-left: 85%;
+                margin-top: 15px;
+             }
+        }
+
+        small {
+            color: red;
+            display: inline-block;
+        }
+
+    }
+}

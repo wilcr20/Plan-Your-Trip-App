@@ -12,7 +12,7 @@ export class Tab1Page {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
   ) {}
   
   ionViewWillEnter(){
@@ -24,6 +24,10 @@ export class Tab1Page {
 
   redirectToCreateTripView(){
     this.router.navigateByUrl("tabs/create-trip");
+  }
+
+  redirectToTripInfoView(id: number){
+    this.router.navigate(['tabs/trip-info', id ]);
   }
 
   

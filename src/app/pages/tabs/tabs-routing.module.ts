@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../create-trip/create-trip.module').then(m => m.CreateTripPageModule)
       },
       {
+        path: 'trip-info/:id',
+        loadChildren: () => import('../trip-info/trip-info.module').then(m => m.TripInfoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/my-trips',
         pathMatch: 'full'

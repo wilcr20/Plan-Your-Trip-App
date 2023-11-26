@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'create-trip',
     loadChildren: () => import('./pages/create-trip/create-trip.module').then( m => m.CreateTripPageModule)
+  },
+  {
+    path: 'trip-info',
+    loadChildren: () => import('./pages/trip-info/trip-info.module').then( m => m.TripInfoPageModule)
   }
 ];
 @NgModule({

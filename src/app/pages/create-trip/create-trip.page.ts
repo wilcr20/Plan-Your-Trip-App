@@ -56,7 +56,8 @@ export class CreateTripPage implements OnInit {
       description: this.description,
       startDate: this.startDate,
       endDate: this.endDate,
-      daysForTrip: this.generateDaysForTrip()
+      daysForTrip: this.generateDaysForTrip(),
+      id: new Date().getTime()
     }
 
     let tripList = this.localStorageService.getItem("trips");
@@ -89,10 +90,11 @@ export class CreateTripPage implements OnInit {
       lastDay.setHours(0, 0, 0, 0);
       lastDay.setDate(lastDay.getDate() + 1);
 
-      while (firsDay <= lastDay) {
+      while (firsDay <= lastDay) {       
         daysGenerated.push({
           display: this.getDayValue(firsDay.getDay()) + " " + firsDay.getUTCDate() + " de " + this.getMonthValue(firsDay.getMonth()) +" del "+ firsDay.getUTCFullYear(),
-          activities: []
+          activities: [],
+          fullDate : `${firsDay.getMonth()+1}-${firsDay.getUTCDate()}-${firsDay.getFullYear()}`
         })
         firsDay.setDate(firsDay.getDate() + 1);
       }

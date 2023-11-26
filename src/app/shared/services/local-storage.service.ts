@@ -23,4 +23,16 @@ export class LocalStorageService {
     localStorage.setItem(key, value);
   }
 
+  getTrip(id: number){
+    let tripList = this.getItem("trips");
+    if(tripList){
+      let list = JSON.parse(tripList) as Array<any>;
+      let trip = list.find((t) => t.id == id);
+      return trip;
+      
+    }
+  }
+
+
+
 }
