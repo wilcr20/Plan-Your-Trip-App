@@ -1,0 +1,87 @@
+.main {
+    margin: 2em 1em 0 1em;
+    position: relative;
+    text-align: center;
+
+    .headerTabs {
+        // background-color:aquamarine;
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            border: 2px solid black;
+            font-size: 18px;
+            padding: 10px;
+
+            &.selected {
+                color: orange;
+                background-color: black;
+            }
+        }
+    }
+
+    hr {
+        border-bottom: 1px solid gray;
+    }
+
+    .noData {
+        top: 20%;
+        position: fixed;
+        left: 0;
+        margin: 0 1em;
+        right: 0;
+
+        h4 {
+            font-family: cursive;
+        }
+    }
+
+    .formItem {
+        margin-top: 2em;
+
+        input {
+            width: 100%;
+            border: 2px solid black;
+            padding: 6px 6px 6px 15px;
+            border-radius: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            white-space: pre-line;
+            background: white;
+        }
+
+        .divError {
+            text-align: center;
+
+            .error {
+                font-size: small;
+                color: red;
+            }
+        }
+
+    }
+    .actionButtons{
+        display: grid;
+        margin-top: 5%;
+        button {
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 6px 10px;
+        margin-top: 4%;
+        font-size: 20px;
+        border: 2px solid black;
+        &.confirm {
+            background: #8ffb8f;
+        }
+        &.cancel {
+            background: red;
+        }
+    }
+    }
+
+}

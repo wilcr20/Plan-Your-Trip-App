@@ -56,6 +56,8 @@ export class CreateTripPage implements OnInit {
       description: this.description,
       startDate: this.startDate,
       endDate: this.endDate,
+      notes: [],
+      urls: [],
       daysForTrip: this.generateDaysForTrip(),
       id: new Date().getTime()
     }

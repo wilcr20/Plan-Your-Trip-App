@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'trip-info',
     loadChildren: () => import('./pages/trip-info/trip-info.module').then( m => m.TripInfoPageModule)
+  },
+  {
+    path: 'activities',
+    loadChildren: () => import('./pages/activities/activities.module').then( m => m.ActivitiesPageModule)
   }
 ];
 @NgModule({

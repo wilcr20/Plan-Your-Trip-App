@@ -7,30 +7,49 @@ export class LocalStorageService {
 
   constructor() { }
 
-  getItem(key: string){
+  getItem(key: string) {
     return localStorage.getItem(key);
   }
 
-  setItem(key: string, value: string){
+  setItem(key: string, value: string) {
     localStorage.setItem(key, value);
   }
 
-  removeItem(key: string){
+  removeItem(key: string) {
     localStorage.removeItem(key);
   }
 
-  updateItem(key:string, value: string){
+  updateItem(key: string, value: string) {
     localStorage.setItem(key, value);
   }
 
-  getTrip(id: number){
+  getTrip(id: number) {
     let tripList = this.getItem("trips");
-    if(tripList){
+    if (tripList) {
       let list = JSON.parse(tripList) as Array<any>;
       let trip = list.find((t) => t.id == id);
       return trip;
-      
     }
+  }
+
+  updateTrip(trip: any) {
+    let tripsSaved = this.getItem("trips");
+    if (tripsSaved) {
+      let trips = JSON.parse(tripsSaved);
+      let idx = this.getTripIndex(trips, trip.id);
+      trips[idx] = trip;
+      this.updateItem("trips", JSON.stringify(trips))
+    }
+  }
+
+  getTripIndex(trips: any, id: any) {
+    let index = -1;
+    let filteredObj = trips.find(function (item: any, i: any) {
+      if (item.id === id) {
+        index = i;
+      }
+    });
+    return index;
   }
 
 

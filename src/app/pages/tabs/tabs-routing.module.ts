@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../trip-info/trip-info.module').then(m => m.TripInfoPageModule)
       },
       {
+        path:'activities/:tripId/:fullDate/:dayState',
+        loadChildren: () => import('../activities/activities.module').then(m => m.ActivitiesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/my-trips',
         pathMatch: 'full'

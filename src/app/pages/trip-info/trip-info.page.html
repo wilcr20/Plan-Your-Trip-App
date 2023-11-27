@@ -2,11 +2,11 @@
   <div class="main">
     <h1 *ngIf="trip">{{trip.name}}</h1>
     <br>
-    <div class="item" *ngFor="let day of trip.daysForTrip">
+    <div class="item" (click)="redirectToActivitiesByDayView(day, getDayState(day))" *ngFor="let day of trip.daysForTrip">
       <p>{{day.display}}</p>
       <div class="iconState">
-        <img *ngIf="getDayState(day) == 1" src="../../../assets/yesterday.png" alt="" srcset="">
-        <img *ngIf="getDayState(day) == 2" src="../../../assets/tick.png" alt="" srcset="">
+        <img *ngIf="getDayState(day) == 1" src="../../../assets/tick.png" alt="" srcset="">
+        <img *ngIf="getDayState(day) == 2" src="../../../assets/yesterday.png" alt="" srcset="">
         <img *ngIf="getDayState(day) == 3" src="../../../assets/tomorrow.png" alt="" srcset="">
       </div>
       <div>

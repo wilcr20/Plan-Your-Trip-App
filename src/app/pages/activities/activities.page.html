@@ -1,0 +1,80 @@
+<ion-content [fullscreen]="true">
+    <div class="main">
+        <div class="headerTabs" *ngIf="!isCreateView && !isEditView">
+            <button [ngClass]="{'selected': tabSelected === 1}" (click)="selectTab(1)">Actividades</button>
+            <button [ngClass]="{'selected': tabSelected === 2}" (click)="selectTab(2)">Links</button>
+            <button [ngClass]="{'selected': tabSelected === 3}" (click)="selectTab(3)">Notas</button>
+        </div>
+        <hr>
+        <div class="noData" *ngIf="!isCreateView && !isEditView">
+            <div *ngIf="dayTrip.activities.length == 0 && tabSelected == 1">
+                <h4>Aún no tienes actividades para este día.</h4>
+            </div>
+            <div *ngIf="trip.urls.length == 0 && tabSelected == 2">
+                <h4>No hay links agregados para mostrar.</h4>
+            </div>
+            <div *ngIf="trip.notes.length == 0 && tabSelected == 3">
+                <h4>No hay notas agregados para mostrar.</h4>
+            </div>
+            <img src="../../../assets/no-task.png" alt="" srcset="">
+
+        </div>
+        <div class="activitiesSection" *ngIf="dayTrip.activities.length > 0 && tabSelected == 1">
+            <!-- list activities  -->
+        </div>
+        <div class="activitiesSection" *ngIf="trip.urls.length > 0 && tabSelected == 2">
+            <!-- list urls  -->
+        </div>
+        <div class="activitiesSection" *ngIf="trip.notes.length > 0 && tabSelected == 3">
+            <!-- list notes  -->
+        </div>
+
+
+        <div *ngIf="isCreateView && !isEditView">
+            <div *ngIf="tabSelected == 1">
+                <form>
+                    <div class="formItem">
+                        <textarea [(ngModel)]="activityDescription" [ngModelOptions]="{standalone: true}" rows="4"
+                            cols="50" placeholder="Ingrese una descripción para la actividad" type="text"></textarea>
+                        <div class="divError">
+                            <span class="error" *ngIf="isActivityDescriptionRequired">
+                                Debe ingresar una descripción para la actividad.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="formItem">
+                        <input [(ngModel)]="estimatedTime" [ngModelOptions]="{standalone: true}"
+                            placeholder="Horas estimadas para la actividad (opc)" type="text">
+                    </div>
+                    <div class="formItem">
+                        <input [(ngModel)]="localization" [ngModelOptions]="{standalone: true}"
+                            placeholder="Ubicación vía Google Maps (opcional)" type="text">
+                    </div>
+                    <div class="actionButtons">
+                        <button class="confirm" (click)="createActivity()">
+                          Agregar actividad
+                        </button>
+                        <button class="cancel" (click)="resetAction()">
+                          Cancelar
+                        </button>
+                      </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <ion-fab *ngIf="!isCreateView && !isEditView" slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button>
+            <ion-icon name="chevron-up-circle"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button (click)="edit()">
+                <ion-icon name="pencil-outline"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="create()">
+                <ion-icon name="add-sharp"></ion-icon>
+            </ion-fab-button>
+
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

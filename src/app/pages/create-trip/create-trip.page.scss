@@ -33,24 +33,27 @@
 
     }
 
-    .actionButtons{
+    .actionButtons {
         display: grid;
         margin-top: 5%;
+
         button {
-        border-radius: 10px;
-        font-weight: 600;
-        padding: 6px 10px;
-        margin-top: 4%;
-        font-size: 20px;
-        border: 2px solid black;
-        &.createTrip {
-            background: #8ffb8f;
+            border-radius: 10px;
+            font-weight: 600;
+            padding: 6px 10px;
+            margin-top: 4%;
+            font-size: 20px;
+            border: 2px solid black;
+
+            &.confirm {
+                background: #8ffb8f;
+            }
+
+            &.cancel {
+                background: red;
+            }
         }
-        &.cancel {
-            background: red;
-        }
-    }
     }
 
-    
+
 }

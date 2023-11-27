@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-trip-info',
@@ -12,20 +14,18 @@ export class TripInfoPage implements OnInit {
   trip: any;
   today: Date;
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private localStorageService: LocalStorageService,
 
   ) { 
     this.today = new Date();
-
   }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe((params: { [x: string]: any; }) => {
       let id = params['id'];
-      this.trip = this.localStorageService.getTrip(id);
-      console.log(this.trip);
-      
+      this.trip = this.localStorageService.getTrip(id);     
     })
   }
 
@@ -37,13 +37,17 @@ export class TripInfoPage implements OnInit {
    
     if(dateObjectbyTripDay.getTime() == this.today.getTime()){     
       return 1
-    }else if(dateObjectbyTripDay.getTime() > this.today.getTime()){
-      return 2
     }else if(dateObjectbyTripDay.getTime() < this.today.getTime()){
+      return 2
+    }else if(dateObjectbyTripDay.getTime() > this.today.getTime()){
       return 3
     }
     return 0
     
+  }
+
+  redirectToActivitiesByDayView(dayItem: any, dayState: number){   
+    this.router.navigate(['tabs/activities', this.trip.id, dayItem.fullDate, dayState ]);
   }
 
 }

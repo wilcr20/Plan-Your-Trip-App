@@ -18,7 +18,7 @@ export class Tab1Page {
   ionViewWillEnter(){
     let tripsSaved = this.localStorageService.getItem("trips");
     if(tripsSaved){
-      this.trips = JSON.parse(tripsSaved);
+      this.trips = JSON.parse(tripsSaved).reverse();
     }
   }
 
