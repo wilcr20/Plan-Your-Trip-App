@@ -9,22 +9,26 @@
         justify-content: space-between;
 
         button {
-            border: 2px solid black;
+            border: 2px solid #373535;
             font-size: 18px;
+            background-color: black;
             padding: 10px;
+            color: orange;
 
             &.selected {
-                color: orange;
-                background-color: black;
+                color: black;
+                background-color: orange;
+                border: 2px solid #373535;
             }
         }
     }
 
     hr {
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid #373535;
     }
 
     .noData {
+        color: white;
         top: 20%;
         position: fixed;
         left: 0;
@@ -36,52 +40,52 @@
         }
     }
 
-    .formItem {
-        margin-top: 2em;
+    .divItem {
+        border: 2px solid orange;
+        background-color: whitesmoke;
+        color: black;
+        margin: 1em 0;
+        padding-left: 10px;
+        text-align: start;
+        display: grid;
 
-        input {
-            width: 100%;
-            border: 2px solid black;
-            padding: 6px 6px 6px 15px;
-            border-radius: 10px;
+        p {
+            font-style: italic;
+            width: 90%;
         }
 
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid black;
-            border-radius: 10px;
-            white-space: pre-line;
-            background: white;
-        }
-
-        .divError {
-            text-align: center;
-
-            .error {
-                font-size: small;
-                color: red;
+        small {
+            &.urlText {
+                width: 85%;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
 
-    }
-    .actionButtons{
-        display: grid;
-        margin-top: 5%;
+        span {
+            font-size: small;
+
+            &.title {
+                font-weight: bold;
+            }
+
+            &.subtitle {
+                font-weight: lighter;
+            }
+        }
+
         button {
-        border-radius: 10px;
-        font-weight: 600;
-        padding: 6px 10px;
-        margin-top: 4%;
-        font-size: 20px;
-        border: 2px solid black;
-        &.confirm {
-            background: #8ffb8f;
-        }
-        &.cancel {
-            background: red;
+            width: 10%;
+            border: 2px solid;
+            position: absolute;
+            border-radius: 5px;
+            right: 0;
         }
     }
-    }
+
+
 
 }

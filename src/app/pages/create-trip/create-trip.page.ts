@@ -50,14 +50,15 @@ export class CreateTripPage implements OnInit {
       this.isEndDateRequired = true;
       return;
     }
-
+    let notes: any = [];
+    let urls: any = []
     let trip = {
       name: this.name,
       description: this.description,
       startDate: this.startDate,
       endDate: this.endDate,
-      notes: [],
-      urls: [],
+      notes: notes,
+      urls: urls,
       daysForTrip: this.generateDaysForTrip(),
       id: new Date().getTime()
     }
@@ -92,15 +93,15 @@ export class CreateTripPage implements OnInit {
       lastDay.setHours(0, 0, 0, 0);
       lastDay.setDate(lastDay.getDate() + 1);
 
-      while (firsDay <= lastDay) {       
+      while (firsDay <= lastDay) {
         daysGenerated.push({
-          display: this.getDayValue(firsDay.getDay()) + " " + firsDay.getUTCDate() + " de " + this.getMonthValue(firsDay.getMonth()) +" del "+ firsDay.getUTCFullYear(),
+          display: this.getDayValue(firsDay.getDay()) + " " + firsDay.getUTCDate() + " de " + this.getMonthValue(firsDay.getMonth()) + " del " + firsDay.getUTCFullYear(),
           activities: [],
-          fullDate : `${firsDay.getMonth()+1}-${firsDay.getUTCDate()}-${firsDay.getFullYear()}`
+          fullDate: `${firsDay.getMonth() + 1}-${firsDay.getUTCDate()}-${firsDay.getFullYear()}`
         })
         firsDay.setDate(firsDay.getDate() + 1);
       }
-    }   
+    }
     return daysGenerated;
   }
 

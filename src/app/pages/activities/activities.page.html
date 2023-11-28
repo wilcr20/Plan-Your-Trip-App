@@ -9,25 +9,52 @@
         <div class="noData" *ngIf="!isCreateView && !isEditView">
             <div *ngIf="dayTrip.activities.length == 0 && tabSelected == 1">
                 <h4>Aún no tienes actividades para este día.</h4>
+                <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
             <div *ngIf="trip.urls.length == 0 && tabSelected == 2">
                 <h4>No hay links agregados para mostrar.</h4>
+                <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
             <div *ngIf="trip.notes.length == 0 && tabSelected == 3">
                 <h4>No hay notas agregados para mostrar.</h4>
+                <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
-            <img src="../../../assets/no-task.png" alt="" srcset="">
 
         </div>
-        <div class="activitiesSection" *ngIf="dayTrip.activities.length > 0 && tabSelected == 1">
-            <!-- list activities  -->
+
+        <div *ngIf="!isCreateView && !isEditView">
+            <div class="activitiesSection" *ngIf="dayTrip.activities.length > 0 && tabSelected == 1">
+                <!-- list activities  -->
+                <div class="divItem" *ngFor="let act of dayTrip.activities" >
+                    <p (click)="openItemMenu(act)">- {{act.description}}</p>
+                    <span *ngIf="act.estimatedTime" class="title">Rango de hora estimada: <span class="subtitle">{{act.estimatedTime}} </span> </span>
+                    <br>
+                    <button *ngIf="act.localization"
+                        (click)="redirectToUrl(act.localization)">
+                        <img src="../../../assets/google-maps.png" alt="" srcset="">
+                    </button>
+                </div>
+            </div>
+            <div class="activitiesSection" *ngIf="trip.urls.length > 0 && tabSelected == 2">
+                <!-- list urls  -->
+                <div class="divItem" *ngFor="let url of trip.urls" >
+                    <p (click)="openItemMenu(url)">{{url.title}}</p>
+                    <small class="urlText">{{url.url}}</small>
+                    <br>
+                    <button 
+                        (click)="redirectToUrl(url.url)">
+                        <img src="../../../assets/website.png" alt="" srcset="">
+                    </button>
+                </div>
+            </div>
+            <div class="activitiesSection" *ngIf="trip.notes.length > 0 && tabSelected == 3">
+                <!-- list notes  -->
+                <div class="divItem" *ngFor="let note of trip.notes" >
+                    <p (click)="openItemMenu(note)">{{note.value}}</p>
+                </div>
+            </div>
         </div>
-        <div class="activitiesSection" *ngIf="trip.urls.length > 0 && tabSelected == 2">
-            <!-- list urls  -->
-        </div>
-        <div class="activitiesSection" *ngIf="trip.notes.length > 0 && tabSelected == 3">
-            <!-- list notes  -->
-        </div>
+
 
 
         <div *ngIf="isCreateView && !isEditView">
@@ -52,29 +79,71 @@
                     </div>
                     <div class="actionButtons">
                         <button class="confirm" (click)="createActivity()">
-                          Agregar actividad
+                            Agregar actividad
                         </button>
                         <button class="cancel" (click)="resetAction()">
-                          Cancelar
+                            Cancelar
                         </button>
-                      </div>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="tabSelected == 2">
+                <form>
+                    <div class="formItem">
+                        <input [(ngModel)]="urlTitle" [ngModelOptions]="{standalone: true}"
+                            placeholder="Ingrese un título para el link" type="text">
+                            <div class="divError" *ngIf="isURlTitleRequired">
+                                <span class="error">
+                                    Debe ingresar un título para el link.
+                                </span>
+                            </div>
+                    </div>
+                    <div class="formItem">
+                        <input [(ngModel)]="urlValue" [ngModelOptions]="{standalone: true}"
+                            placeholder="Ingrese el link" type="text">
+                            <div class="divError" *ngIf="isURLRequired">
+                                <span class="error">
+                                    Debe ingresar una url.
+                                </span>
+                            </div>
+                    </div>
+                    <div class="actionButtons">
+                        <button class="confirm" (click)="createUrl()">
+                            Agregar link
+                        </button>
+                        <button class="cancel" (click)="resetAction()">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="tabSelected == 3">
+                <form>
+                    <div class="formItem">
+                        <textarea [(ngModel)]="noteValue" [ngModelOptions]="{standalone: true}" rows="4"
+                            cols="50" placeholder="" type="text"></textarea>
+                        <div class="divError">
+                            <span class="error" *ngIf="isNoteValueRequired">
+                                No se puede guardar una nota vacía.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="actionButtons">
+                        <button class="confirm" (click)="createNote()">
+                            Agregar nota
+                        </button>
+                        <button class="cancel" (click)="resetAction()">
+                            Cancelar
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
 
     </div>
-    <ion-fab *ngIf="!isCreateView && !isEditView" slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button>
-            <ion-icon name="chevron-up-circle"></ion-icon>
+    <ion-fab *ngIf="!isCreateView && !isEditView && dayState != '2'" slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="create()">
+            <ion-icon name="add-sharp"></ion-icon>
         </ion-fab-button>
-        <ion-fab-list side="top">
-            <ion-fab-button (click)="edit()">
-                <ion-icon name="pencil-outline"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-button (click)="create()">
-                <ion-icon name="add-sharp"></ion-icon>
-            </ion-fab-button>
-
-        </ion-fab-list>
     </ion-fab>
 </ion-content>

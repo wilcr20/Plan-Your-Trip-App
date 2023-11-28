@@ -44,7 +44,7 @@ export class LocalStorageService {
 
   getTripIndex(trips: any, id: any) {
     let index = -1;
-    let filteredObj = trips.find(function (item: any, i: any) {
+    trips.find(function (item: any, i: any) {
       if (item.id === id) {
         index = i;
       }
@@ -52,6 +52,20 @@ export class LocalStorageService {
     return index;
   }
 
+  getActivityIndexByTrip(tripIndex: any) {
+    let index = -1;
+    let tripsSaved = this.getItem("trips");
+    if (tripsSaved) {
+      let trips = JSON.parse(tripsSaved);
+      trips[tripIndex].daysForTrip.find(function (item: any, i: any) {
+        // if (item.id === id) {
+        //   index = i;
+        // }
+      });
+      return index;
+    }
+    return undefined;
 
+  }
 
 }

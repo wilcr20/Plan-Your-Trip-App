@@ -10,7 +10,7 @@
         <img *ngIf="getDayState(day) == 3" src="../../../assets/tomorrow.png" alt="" srcset="">
       </div>
       <div>
-        <small *ngIf="day.activities.length == 0">No hay actividades agregadas.</small>
+        <small class="noActivity" *ngIf="day.activities.length == 0">No hay actividades agregadas.</small>
         <small *ngIf="day.activities.length > 0">Click para ver más detalles.</small>
 
       </div>

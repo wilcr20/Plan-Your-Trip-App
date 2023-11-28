@@ -3,15 +3,17 @@
     text-align: center;
 
     h1 {
-        color: blue;
+        color: orange;
     }
 
     .item {
-        border: 2px solid gray;
+        border: 2px solid orange;
         border-radius: 15px;
         text-align: start;
         padding-left: 10px;
         margin-bottom: 1em;
+        background-color: #373535;
+        color: white;
 
         .iconState {
             float: right;
@@ -23,11 +25,16 @@
                 width: 15%;
                 margin-left: 85%;
                 margin-top: 15px;
-             }
+            }
         }
 
         small {
-            color: red;
+            &.noActivity {
+                color: #ff7c7c;
+
+            }
+
+            color: #50b64a;
             display: inline-block;
         }
 
