@@ -14,6 +14,9 @@
         margin-bottom: 1em;
         background-color: #373535;
         color: white;
+        &.today {
+            background-color: #625d08;
+        }
 
         .iconState {
             float: right;

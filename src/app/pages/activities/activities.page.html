@@ -25,31 +25,30 @@
         <div *ngIf="!isCreateView && !isEditView">
             <div class="activitiesSection" *ngIf="dayTrip.activities.length > 0 && tabSelected == 1">
                 <!-- list activities  -->
-                <div class="divItem" *ngFor="let act of dayTrip.activities" >
+                <div class="divItem" *ngFor="let act of dayTrip.activities">
                     <p (click)="openItemMenu(act)">- {{act.description}}</p>
-                    <span *ngIf="act.estimatedTime" class="title">Rango de hora estimada: <span class="subtitle">{{act.estimatedTime}} </span> </span>
+                    <span *ngIf="act.estimatedTime" class="title">Rango de hora estimada: <span
+                            class="subtitle">{{act.estimatedTime}} </span> </span>
                     <br>
-                    <button *ngIf="act.localization"
-                        (click)="redirectToUrl(act.localization)">
+                    <button *ngIf="act.localization" (click)="redirectToUrl(act.localization)">
                         <img src="../../../assets/google-maps.png" alt="" srcset="">
                     </button>
                 </div>
             </div>
             <div class="activitiesSection" *ngIf="trip.urls.length > 0 && tabSelected == 2">
                 <!-- list urls  -->
-                <div class="divItem" *ngFor="let url of trip.urls" >
+                <div class="divItem" *ngFor="let url of trip.urls">
                     <p (click)="openItemMenu(url)">{{url.title}}</p>
                     <small class="urlText">{{url.url}}</small>
                     <br>
-                    <button 
-                        (click)="redirectToUrl(url.url)">
+                    <button (click)="redirectToUrl(url.url)">
                         <img src="../../../assets/website.png" alt="" srcset="">
                     </button>
                 </div>
             </div>
             <div class="activitiesSection" *ngIf="trip.notes.length > 0 && tabSelected == 3">
                 <!-- list notes  -->
-                <div class="divItem" *ngFor="let note of trip.notes" >
+                <div class="divItem" *ngFor="let note of trip.notes">
                     <p (click)="openItemMenu(note)">{{note.value}}</p>
                 </div>
             </div>
@@ -81,7 +80,7 @@
                         <button class="confirm" (click)="createActivity()">
                             Agregar actividad
                         </button>
-                        <button class="cancel" (click)="resetAction()">
+                        <button class="cancel" (click)="reset()">
                             Cancelar
                         </button>
                     </div>
@@ -92,26 +91,26 @@
                     <div class="formItem">
                         <input [(ngModel)]="urlTitle" [ngModelOptions]="{standalone: true}"
                             placeholder="Ingrese un título para el link" type="text">
-                            <div class="divError" *ngIf="isURlTitleRequired">
-                                <span class="error">
-                                    Debe ingresar un título para el link.
-                                </span>
-                            </div>
+                        <div class="divError" *ngIf="isURlTitleRequired">
+                            <span class="error">
+                                Debe ingresar un título para el link.
+                            </span>
+                        </div>
                     </div>
                     <div class="formItem">
                         <input [(ngModel)]="urlValue" [ngModelOptions]="{standalone: true}"
                             placeholder="Ingrese el link" type="text">
-                            <div class="divError" *ngIf="isURLRequired">
-                                <span class="error">
-                                    Debe ingresar una url.
-                                </span>
-                            </div>
+                        <div class="divError" *ngIf="isURLRequired">
+                            <span class="error">
+                                Debe ingresar una url.
+                            </span>
+                        </div>
                     </div>
                     <div class="actionButtons">
                         <button class="confirm" (click)="createUrl()">
                             Agregar link
                         </button>
-                        <button class="cancel" (click)="resetAction()">
+                        <button class="cancel" (click)="reset()">
                             Cancelar
                         </button>
                     </div>
@@ -120,8 +119,8 @@
             <div *ngIf="tabSelected == 3">
                 <form>
                     <div class="formItem">
-                        <textarea [(ngModel)]="noteValue" [ngModelOptions]="{standalone: true}" rows="4"
-                            cols="50" placeholder="" type="text"></textarea>
+                        <textarea [(ngModel)]="noteValue" [ngModelOptions]="{standalone: true}" rows="4" cols="50"
+                            placeholder="" type="text"></textarea>
                         <div class="divError">
                             <span class="error" *ngIf="isNoteValueRequired">
                                 No se puede guardar una nota vacía.
@@ -132,7 +131,93 @@
                         <button class="confirm" (click)="createNote()">
                             Agregar nota
                         </button>
-                        <button class="cancel" (click)="resetAction()">
+                        <button class="cancel" (click)="reset()">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div *ngIf="!isCreateView && isEditView">
+            <div *ngIf="tabSelected == 1">
+                <!-- edit activities  -->
+                <form>
+                    <div class="formItem">
+                        <textarea [(ngModel)]="activityDescription" [ngModelOptions]="{standalone: true}" rows="4"
+                            cols="50" placeholder="Ingrese una descripción para la actividad" type="text"></textarea>
+                        <div class="divError">
+                            <span class="error" *ngIf="isActivityDescriptionRequired">
+                                Debe ingresar una descripción para la actividad.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="formItem">
+                        <input [(ngModel)]="estimatedTime" [ngModelOptions]="{standalone: true}"
+                            placeholder="Horas estimadas para la actividad (opc)" type="text">
+                    </div>
+                    <div class="formItem">
+                        <input [(ngModel)]="localization" [ngModelOptions]="{standalone: true}"
+                            placeholder="Ubicación vía Google Maps (opcional)" type="text">
+                    </div>
+                    <div class="actionButtons">
+                        <button class="confirm" (click)="editActivity()">
+                            Editar actividad
+                        </button>
+                        <button class="cancel" (click)="reset()">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="tabSelected == 2">
+                <!-- edit urls  -->
+                <form>
+                    <div class="formItem">
+                        <input [(ngModel)]="urlTitle" [ngModelOptions]="{standalone: true}"
+                            placeholder="Ingrese un título para el link" type="text">
+                        <div class="divError" *ngIf="isURlTitleRequired">
+                            <span class="error">
+                                Debe ingresar un título para el link.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="formItem">
+                        <input [(ngModel)]="urlValue" [ngModelOptions]="{standalone: true}"
+                            placeholder="Ingrese el link" type="text">
+                        <div class="divError" *ngIf="isURLRequired">
+                            <span class="error">
+                                Debe ingresar una url.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="actionButtons">
+                        <button class="confirm" (click)="editUrl()">
+                            Editar link
+                        </button>
+                        <button class="cancel" (click)="reset()">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="tabSelected == 3">
+                <!-- edit notes  -->
+                <form>
+                    <div class="formItem">
+                        <textarea [(ngModel)]="noteValue" [ngModelOptions]="{standalone: true}" rows="4" cols="50"
+                            placeholder="" type="text"></textarea>
+                        <div class="divError">
+                            <span class="error" *ngIf="isNoteValueRequired">
+                                No se puede guardar una nota vacía.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="actionButtons">
+                        <button class="confirm" (click)="editNote()">
+                            Editar nota
+                        </button>
+                        <button class="cancel" (click)="reset()">
                             Cancelar
                         </button>
                     </div>

@@ -21,6 +21,8 @@ export class ActivitiesPage implements OnInit {
   isCreateView = true;
   isEditView = false;
 
+  itemEdited: any;
+
   isActivityDescriptionRequired = false;
   isURlTitleRequired = false;
   isURLRequired = false;
@@ -30,7 +32,6 @@ export class ActivitiesPage implements OnInit {
   activityDescription: string | undefined;
   estimatedTime: string | undefined;
   localization: string | undefined;
-  activityId: string | undefined;
   urlTitle: string | undefined;
   urlValue: string | undefined;
   noteValue: string | undefined;
@@ -122,7 +123,7 @@ export class ActivitiesPage implements OnInit {
     this.reset();
   }
 
-  createNote(){
+  createNote() {
     this.isNoteValueRequired = false;
     if (!this.noteValue || this.noteValue.trim() == "") {
       this.isNoteValueRequired = true
@@ -167,7 +168,6 @@ export class ActivitiesPage implements OnInit {
     this.activityDescription = "";
     this.estimatedTime = "";
     this.localization = "";
-    this.activityId = "";
     this.urlTitle = "";
     this.urlValue = "";
     this.noteValue = "";
@@ -194,7 +194,7 @@ export class ActivitiesPage implements OnInit {
           text: 'Editar',
           cssClass: 'blackOption',
           handler: () => {
-            this.showEditItemView(item.id)
+            this.showEditItemView(item)
           }
         },
         {
@@ -209,7 +209,7 @@ export class ActivitiesPage implements OnInit {
     await alert.present();
   }
 
-  deleteItem(id: any) {    
+  deleteItem(id: any) {
     if (this.tabSelected == 1) {
       let tripIndex = this.getTripIndex(this.dayTrip.fullDate);
       this.dayTrip.activities = this.dayTrip.activities.filter((t: { id: any; }) => t.id != id)
@@ -222,8 +222,8 @@ export class ActivitiesPage implements OnInit {
       });
       this.trip = this.localStorageService.getTrip(this.tripId);
       this.resetAction();
-    } 
-    else if (this.tabSelected == 2) {     
+    }
+    else if (this.tabSelected == 2) {
       this.trip.urls = this.trip.urls.filter((t: { id: any; }) => t.id != id)
       this.localStorageService.updateTrip(this.trip);
       Swal.fire({
@@ -234,7 +234,7 @@ export class ActivitiesPage implements OnInit {
       this.trip = this.localStorageService.getTrip(this.tripId);
       this.resetAction();
     }
-    else if (this.tabSelected == 3) {     
+    else if (this.tabSelected == 3) {
       this.trip.notes = this.trip.notes.filter((t: { id: any; }) => t.id != id)
       this.localStorageService.updateTrip(this.trip);
       Swal.fire({
@@ -248,23 +248,95 @@ export class ActivitiesPage implements OnInit {
 
   }
 
-  showEditItemView(id: any) {
-    this.activityId = id;
+  showEditItemView(item: any) {
     this.isEditView = true;
+    this.itemEdited = item;
+    if (this.tabSelected == 1) {
+
+      let activityIdx = this.dayTrip.activities.findIndex((act: { id: any; }) => act.id == item.id)
+      this.itemEdited = this.dayTrip.activities[activityIdx];
+      this.activityDescription = this.itemEdited.description;
+      this.estimatedTime = this.itemEdited.estimatedTime;
+      this.localization = this.itemEdited.localization;
+    }
+    else if (this.tabSelected == 2) {
+      this.urlTitle = this.itemEdited.title;
+      this.urlValue = this.itemEdited.url;
+    }
+    else if (this.tabSelected == 3) {
+      this.noteValue = item.value;
+    }
   }
 
-  editItem(id: any) {
-    let tripIndex = this.getTripIndex(this.dayTrip.fullDate);
-    this.dayTrip.activities = this.dayTrip.activities.filter((t: { id: any; }) => t.id != id)
-    this.trip.daysForTrip[tripIndex] = this.dayTrip;
+
+  editNote() {
+    this.isNoteValueRequired = false;
+    if (!this.noteValue || this.noteValue.trim() == "") {
+      this.isNoteValueRequired = true
+      return;
+    }
+    this.itemEdited.value = this.noteValue;
+    let noteIdx = this.trip.notes.findIndex((note: { id: any; }) => note.id == this.itemEdited.id);
+    this.trip.notes[noteIdx] = this.itemEdited;
     this.localStorageService.updateTrip(this.trip);
     Swal.fire({
       icon: 'success',
-      text: 'Actividad eliminada!!',
+      text: 'Nota editada!!',
       heightAuto: false,
     });
     this.trip = this.localStorageService.getTrip(this.tripId);
-    this.resetAction();
+    this.reset();
+  }
+
+  editUrl() {
+    this.isURlTitleRequired = false;
+    this.isURLRequired = false;
+    if (!this.urlTitle || this.urlTitle.trim() == "") {
+      this.isURlTitleRequired = true
+      return;
+    }
+    if (!this.urlValue || this.urlValue.trim() == "") {
+      this.isURLRequired = true
+      return;
+    }
+
+    this.itemEdited.title = this.urlTitle;
+    this.itemEdited.url = this.urlValue;
+    let urlIdx = this.trip.urls.findIndex((url: { id: any; }) => url.id == this.itemEdited.id);
+    this.trip.urls[urlIdx] = this.itemEdited;
+    this.localStorageService.updateTrip(this.trip);
+    Swal.fire({
+      icon: 'success',
+      text: 'Link editado!!',
+      heightAuto: false,
+    });
+    this.trip = this.localStorageService.getTrip(this.tripId);
+    this.reset();
+  }
+
+  editActivity() {
+    this.isActivityDescriptionRequired = false;
+    if (!this.activityDescription || this.activityDescription.trim() == "") {
+      this.isActivityDescriptionRequired = true
+      return;
+    }
+
+    this.itemEdited.description = this.activityDescription;
+    this.itemEdited.estimatedTime = this.estimatedTime;
+    this.itemEdited.localization = this.localization;
+
+    let dayForTripIdx = this.getTripIndex(this.dayTrip.fullDate);
+    let activityIdx = this.dayTrip.activities.findIndex((act: { id: any; }) => act.id == this.itemEdited.id)
+
+    this.trip.daysForTrip[dayForTripIdx].activities[activityIdx] = this.itemEdited;
+    this.localStorageService.updateTrip(this.trip);
+    Swal.fire({
+      icon: 'success',
+      text: 'Actividad editada!!',
+      heightAuto: false,
+    });
+    this.trip = this.localStorageService.getTrip(this.tripId);
+    this.reset();
   }
 
 }

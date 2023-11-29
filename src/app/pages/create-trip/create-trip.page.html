@@ -5,8 +5,8 @@
       <div class="formItem">
         <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Ingrese el nombre para el viaje"
           type="text">
-        <div class="divError">
-          <span class="error" *ngIf="isNameRequired">
+        <div class="divError" *ngIf="isNameRequired">
+          <span class="error" >
             Debe ingresar un nombre para el viaje.
           </span>
         </div>
@@ -36,6 +36,11 @@
               Debe ingresar la fecha final.
             </span>
           </div>
+        </div>
+        <div class="divError" *ngIf="isDateWrong">
+          <span class="error" >
+            Debe ingresar una fecha inicial menor o igual a la fecha final.
+          </span>
         </div>
       </div>
     </form>

@@ -17,6 +17,7 @@ export class CreateTripPage implements OnInit {
   isNameRequired = false;
   isStartDateRequired = false;
   isEndDateRequired = false;
+  isDateWrong = false;
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
@@ -37,6 +38,7 @@ export class CreateTripPage implements OnInit {
     this.isNameRequired = false;
     this.isEndDateRequired = false;
     this.isStartDateRequired = false;
+    this.isDateWrong = false;
     if (!this.name || this.name.trim() == "") {
       this.isNameRequired = true;
       return;
@@ -50,6 +52,20 @@ export class CreateTripPage implements OnInit {
       this.isEndDateRequired = true;
       return;
     }
+
+    let firsDay = new Date(this.startDate);
+    firsDay.setHours(0, 0, 0, 0);
+    firsDay.setDate(firsDay.getDate() + 1);
+
+    let lastDay = new Date(this.endDate);
+    lastDay.setHours(0, 0, 0, 0);
+    lastDay.setDate(lastDay.getDate() + 1);
+
+    if(firsDay > lastDay){
+      this.isDateWrong = true;
+      return;
+    }
+
     let notes: any = [];
     let urls: any = []
     let trip = {
@@ -59,7 +75,7 @@ export class CreateTripPage implements OnInit {
       endDate: this.endDate,
       notes: notes,
       urls: urls,
-      daysForTrip: this.generateDaysForTrip(),
+      daysForTrip: this.generateDaysForTrip(firsDay, lastDay),
       id: new Date().getTime()
     }
 
@@ -82,17 +98,9 @@ export class CreateTripPage implements OnInit {
 
   }
 
-  generateDaysForTrip() {
+  generateDaysForTrip(firsDay: any, lastDay: any) {
     let daysGenerated: any = [];
     if (this.startDate && this.endDate) {
-      let firsDay = new Date(this.startDate);
-      firsDay.setHours(0, 0, 0, 0);
-      firsDay.setDate(firsDay.getDate() + 1);
-
-      let lastDay = new Date(this.endDate);
-      lastDay.setHours(0, 0, 0, 0);
-      lastDay.setDate(lastDay.getDate() + 1);
-
       while (firsDay <= lastDay) {
         daysGenerated.push({
           display: this.getDayValue(firsDay.getDay()) + " " + firsDay.getUTCDate() + " de " + this.getMonthValue(firsDay.getMonth()) + " del " + firsDay.getUTCFullYear(),

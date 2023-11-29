@@ -2,7 +2,8 @@
   <div class="main">
     <h1 *ngIf="trip">{{trip.name}}</h1>
     <br>
-    <div class="item" (click)="redirectToActivitiesByDayView(day, getDayState(day))" *ngFor="let day of trip.daysForTrip">
+    <div class="item" [ngClass]="{'today': getDayState(day) == 1}" 
+    (click)="redirectToActivitiesByDayView(day, getDayState(day))" *ngFor="let day of trip.daysForTrip">
       <p>{{day.display}}</p>
       <div class="iconState">
         <img *ngIf="getDayState(day) == 1" src="../../../assets/tick.png" alt="" srcset="">
@@ -10,8 +11,12 @@
         <img *ngIf="getDayState(day) == 3" src="../../../assets/tomorrow.png" alt="" srcset="">
       </div>
       <div>
-        <small class="noActivity" *ngIf="day.activities.length == 0">No hay actividades agregadas.</small>
-        <small *ngIf="day.activities.length > 0">Click para ver más detalles.</small>
+        <div *ngIf="day.activities.length == 0 ">
+          <small class="noActivity" >Sin actividades agregadas.</small>
+          <br>
+        </div>
+        
+        <small >Click para ver más detalles.</small>
 
       </div>
     </div>
