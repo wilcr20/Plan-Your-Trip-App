@@ -32,10 +32,10 @@ ion-fab-button {
     // --box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
     --color: black;
     // --border: 2px solid gray;
-  }
+}
 
 
-  ion-content {
+ion-content {
     --background: none;
     background-position: center center;
     background-repeat: no-repeat;
@@ -45,62 +45,67 @@ ion-fab-button {
 
 
 .formItem {
-  margin-top: 2em;
+    margin-top: 2em;
 
-  input {
-      width: 100%;
-      border: 2px solid #373535;
-      padding: 6px 6px 6px 15px;
-      border-radius: 10px;
-  }
+    label {
+        color: white;
+    }
 
-  textarea {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid #373535;
-      border-radius: 10px;
-      white-space: pre-line;
-      background: white;
-  }
+    input {
+        width: 100%;
+        border: 2px solid #373535;
+        padding: 6px 6px 6px 15px;
+        border-radius: 10px;
+        height: 50px;
+    }
 
-  .divError {
-      text-align: center;
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #373535;
+        border-radius: 10px;
+        white-space: pre-line;
+        background: white;
+    }
 
-      .error {
-          font-size: small;
-          color: red;
-      }
-  }
+    .divError {
+        text-align: center;
+
+        .error {
+            font-size: small;
+            color: red;
+        }
+    }
 
 }
 
 .actionButtons {
-  display: grid;
-  margin-top: 5%;
+    display: grid;
+    margin-top: 5%;
 
-  button {
-      border-radius: 10px;
-      font-weight: 600;
-      padding: 6px 10px;
-      margin-top: 4%;
-      font-size: 20px;
-      border: 2px solid black;
+    button {
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 6px 10px;
+        margin-top: 4%;
+        font-size: 20px;
+        border: 2px solid black;
+        height: 45px;
+        &.confirm {
+            background: #8ffb8f;
+        }
 
-      &.confirm {
-          background: #8ffb8f;
-      }
-
-      &.cancel {
-          background: red;
-      }
-  }
+        &.cancel {
+            background: red;
+        }
+    }
 }
 
 
-.redOption{
+.redOption {
     color: red !important;
 }
 
-.blackOption{
+.blackOption {
     color: black !important;
 }
