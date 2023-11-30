@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-trip',
@@ -61,7 +62,7 @@ export class CreateTripPage implements OnInit {
     lastDay.setHours(0, 0, 0, 0);
     lastDay.setDate(lastDay.getDate() + 1);
 
-    if(firsDay > lastDay){
+    if (firsDay > lastDay) {
       this.isDateWrong = true;
       return;
     }
@@ -88,7 +89,11 @@ export class CreateTripPage implements OnInit {
       listParsed.push(trip);
       this.localStorageService.updateItem("trips", JSON.stringify(listParsed))
     }
-
+    Swal.fire({
+      icon: 'success',
+      text: 'Viaje agregado!!',
+      heightAuto: false,
+    });
     this.redirectToHomePage();
 
   }
