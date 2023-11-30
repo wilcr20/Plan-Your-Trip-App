@@ -110,6 +110,8 @@ export class CreateTripPage implements OnInit {
         daysGenerated.push({
           display: this.getDayValue(firsDay.getDay()) + " " + firsDay.getUTCDate() + " de " + this.getMonthValue(firsDay.getMonth()) + " del " + firsDay.getUTCFullYear(),
           activities: [],
+          urls: [],
+          notes: [],
           fullDate: `${firsDay.getMonth() + 1}-${firsDay.getUTCDate()}-${firsDay.getFullYear()}`
         })
         firsDay.setDate(firsDay.getDate() + 1);

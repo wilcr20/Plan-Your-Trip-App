@@ -11,11 +11,11 @@
                 <h4>No hay actividades para este día.</h4>
                 <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
-            <div *ngIf="trip.urls.length == 0 && tabSelected == 2">
+            <div *ngIf="dayTrip.urls.length == 0 && tabSelected == 2">
                 <h4>No hay links agregados para mostrar.</h4>
                 <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
-            <div *ngIf="trip.notes.length == 0 && tabSelected == 3">
+            <div *ngIf="dayTrip.notes.length == 0 && tabSelected == 3">
                 <h4>No hay notas agregados para mostrar.</h4>
                 <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
@@ -35,9 +35,9 @@
                     </button>
                 </div>
             </div>
-            <div class="activitiesSection" *ngIf="trip.urls.length > 0 && tabSelected == 2">
+            <div class="activitiesSection" *ngIf="dayTrip.urls.length > 0 && tabSelected == 2">
                 <!-- list urls  -->
-                <div class="divItem" *ngFor="let url of trip.urls">
+                <div class="divItem" *ngFor="let url of dayTrip.urls">
                     <p (click)="openItemMenu(url)">{{url.title}}</p>
                     <small class="urlText">{{url.url}}</small>
                     <br>
@@ -46,9 +46,9 @@
                     </button>
                 </div>
             </div>
-            <div class="activitiesSection" *ngIf="trip.notes.length > 0 && tabSelected == 3">
+            <div class="activitiesSection" *ngIf="dayTrip.notes.length > 0 && tabSelected == 3">
                 <!-- list notes  -->
-                <div class="divItem" *ngFor="let note of trip.notes">
+                <div class="divItem" *ngFor="let note of dayTrip.notes">
                     <p (click)="openItemMenu(note)">{{note.value}}</p>
                 </div>
             </div>

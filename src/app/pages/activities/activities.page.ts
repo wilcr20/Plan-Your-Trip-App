@@ -56,6 +56,25 @@ export class ActivitiesPage implements OnInit {
       this.dayState = params['dayState'];
       this.trip = this.localStorageService.getTrip(this.tripId);
       this.dayTrip = this.trip.daysForTrip.find((t: { fullDate: any; }) => t.fullDate == this.fullDate);
+
+      // --------------- Temporal fix for existing trips
+      // REMOVE IT LATER !!!!
+      let needToUpdate = false;
+      if (!this.dayTrip.notes) {
+        needToUpdate = true;
+        this.dayTrip.notes = [];
+      }
+      if (!this.dayTrip.urls) {
+        needToUpdate = true;
+        this.dayTrip.urls = [];
+      }
+      if (needToUpdate) {
+        let idx = this.getTripIndex(this.dayTrip.fullDate);
+        this.trip.daysForTrip[idx] = this.dayTrip;
+        this.localStorageService.updateTrip(this.trip);
+      }
+       // ---------------
+      
     });
   }
 
@@ -112,7 +131,9 @@ export class ActivitiesPage implements OnInit {
       url: this.urlValue,
       id: new Date().getTime()
     }
-    this.trip.urls.push(url)
+    let idx = this.getTripIndex(this.dayTrip.fullDate);
+    this.dayTrip.urls.push(url);
+    this.trip.daysForTrip[idx] = this.dayTrip;
     this.localStorageService.updateTrip(this.trip);
     Swal.fire({
       icon: 'success',
@@ -133,7 +154,9 @@ export class ActivitiesPage implements OnInit {
       value: this.noteValue,
       id: new Date().getTime()
     }
-    this.trip.notes.push(note)
+    let idx = this.getTripIndex(this.dayTrip.fullDate);
+    this.dayTrip.notes.push(note);
+    this.trip.daysForTrip[idx] = this.dayTrip;
     this.localStorageService.updateTrip(this.trip);
     Swal.fire({
       icon: 'success',
@@ -224,7 +247,9 @@ export class ActivitiesPage implements OnInit {
       this.resetAction();
     }
     else if (this.tabSelected == 2) {
-      this.trip.urls = this.trip.urls.filter((t: { id: any; }) => t.id != id)
+      let tripIndex = this.getTripIndex(this.dayTrip.fullDate);
+      this.dayTrip.urls = this.dayTrip.urls.filter((t: { id: any; }) => t.id != id)
+      this.trip.daysForTrip[tripIndex] = this.dayTrip;
       this.localStorageService.updateTrip(this.trip);
       Swal.fire({
         icon: 'success',
@@ -235,7 +260,9 @@ export class ActivitiesPage implements OnInit {
       this.resetAction();
     }
     else if (this.tabSelected == 3) {
-      this.trip.notes = this.trip.notes.filter((t: { id: any; }) => t.id != id)
+      let tripIndex = this.getTripIndex(this.dayTrip.fullDate);
+      this.dayTrip.notes = this.dayTrip.notes.filter((t: { id: any; }) => t.id != id)
+      this.trip.daysForTrip[tripIndex] = this.dayTrip;
       this.localStorageService.updateTrip(this.trip);
       Swal.fire({
         icon: 'success',
@@ -250,7 +277,6 @@ export class ActivitiesPage implements OnInit {
 
   showEditItemView(item: any) {
     this.isEditView = true;
-    this.itemEdited = item;
     if (this.tabSelected == 1) {
 
       let activityIdx = this.dayTrip.activities.findIndex((act: { id: any; }) => act.id == item.id)
@@ -260,10 +286,14 @@ export class ActivitiesPage implements OnInit {
       this.localization = this.itemEdited.localization;
     }
     else if (this.tabSelected == 2) {
+      let urlIdx = this.dayTrip.urls.findIndex((act: { id: any; }) => act.id == item.id)
+      this.itemEdited = this.dayTrip.urls[urlIdx];
       this.urlTitle = this.itemEdited.title;
       this.urlValue = this.itemEdited.url;
     }
     else if (this.tabSelected == 3) {
+      let noteIdx = this.dayTrip.notes.findIndex((act: { id: any; }) => act.id == item.id)
+      this.itemEdited = this.dayTrip.notes[noteIdx];
       this.noteValue = item.value;
     }
   }
@@ -276,9 +306,12 @@ export class ActivitiesPage implements OnInit {
       return;
     }
     this.itemEdited.value = this.noteValue;
-    let noteIdx = this.trip.notes.findIndex((note: { id: any; }) => note.id == this.itemEdited.id);
-    this.trip.notes[noteIdx] = this.itemEdited;
+
+    let dayForTripIdx = this.getTripIndex(this.dayTrip.fullDate);
+    let noteIdx = this.dayTrip.notes.findIndex((act: { id: any; }) => act.id == this.itemEdited.id)
+    this.trip.daysForTrip[dayForTripIdx].notes[noteIdx] = this.itemEdited;
     this.localStorageService.updateTrip(this.trip);
+
     Swal.fire({
       icon: 'success',
       text: 'Nota editada!!',
@@ -302,8 +335,10 @@ export class ActivitiesPage implements OnInit {
 
     this.itemEdited.title = this.urlTitle;
     this.itemEdited.url = this.urlValue;
-    let urlIdx = this.trip.urls.findIndex((url: { id: any; }) => url.id == this.itemEdited.id);
-    this.trip.urls[urlIdx] = this.itemEdited;
+
+    let dayForTripIdx = this.getTripIndex(this.dayTrip.fullDate);
+    let urlIdx = this.dayTrip.urls.findIndex((url: { id: any; }) => url.id == this.itemEdited.id);
+    this.trip.daysForTrip[dayForTripIdx].urls[urlIdx] = this.itemEdited;
     this.localStorageService.updateTrip(this.trip);
     Swal.fire({
       icon: 'success',
