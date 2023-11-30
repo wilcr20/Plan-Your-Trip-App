@@ -9,11 +9,11 @@ const routes: Routes = [
     children: [
       {
         path: 'my-trips',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        loadChildren: () => import('../my-trips/my-trips.module').then(m => m.MyTripsPageModule)
       },
       {
         path: 'exchange-rate',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        loadChildren: () => import('../exchange-rate/exchange-rate.module').then(m => m.Tab2PageModule)
       },
       {
         path: 'create-trip',
