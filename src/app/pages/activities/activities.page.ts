@@ -56,7 +56,7 @@ export class ActivitiesPage implements OnInit {
       this.dayState = params['dayState'];
       this.trip = this.localStorageService.getTrip(this.tripId);
       this.dayTrip = this.trip.daysForTrip.find((t: { fullDate: any; }) => t.fullDate == this.fullDate);
-     
+
     });
   }
 
@@ -182,28 +182,64 @@ export class ActivitiesPage implements OnInit {
     window.open(url, "_blank");
   }
 
-  async openItemMenu(item: any) {
+  async openItemMenu(item: any, idx: number, total: number, canMove: boolean) {
+
+    let buttonsToUse = [
+      {
+        text: 'Editar',
+        cssClass: 'blackOption',
+        handler: () => {
+          this.showEditItemView(item)
+        }
+      },
+      {
+        text: 'Eliminar',
+        cssClass: 'redOption',
+        handler: () => {
+          this.deleteItem(item.id);
+        }
+      }
+    ];
+
+    if (idx > 0 && total > idx && canMove) {
+      buttonsToUse.push(
+        {
+          text: 'Mover hacia arriba',
+          cssClass: 'blueOption',
+          handler: () => {
+            this.moveActivityPosition(item.id, idx, idx - 1);
+          }
+        }
+      );
+    }
+    if (idx + 1 < total && canMove) {
+      buttonsToUse.push(
+        {
+          text: 'Mover hacia abajo',
+          cssClass: 'blueOption',
+          handler: () => {
+            this.moveActivityPosition(item.id, idx, idx + 1);
+          }
+        }
+      );
+    }
     const alert = await this.alertCtrl.create({
       message: '¿Qué acción desea realizar?',
       mode: 'ios',
-      buttons: [
-        {
-          text: 'Editar',
-          cssClass: 'blackOption',
-          handler: () => {
-            this.showEditItemView(item)
-          }
-        },
-        {
-          text: 'Eliminar',
-          cssClass: 'redOption',
-          handler: () => {
-            this.deleteItem(item.id);
-          }
-        },
-      ],
+      buttons: buttonsToUse,
     });
     await alert.present();
+  }
+
+  moveActivityPosition(id: any, oldPosition: number, newPosition: number) {
+    let a = this.dayTrip.activities[oldPosition];
+    let b = this.dayTrip.activities[newPosition];
+    this.dayTrip.activities[oldPosition] = b;
+    this.dayTrip.activities[newPosition] = a;
+
+    let dayForTripIdx = this.getTripIndex(this.dayTrip.fullDate);
+    this.trip.daysForTrip[dayForTripIdx].activities = this.dayTrip.activities
+    this.localStorageService.updateTrip(this.trip);
   }
 
   deleteItem(id: any) {

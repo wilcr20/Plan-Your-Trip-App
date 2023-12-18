@@ -25,8 +25,8 @@
         <div *ngIf="!isCreateView && !isEditView">
             <div class="activitiesSection" *ngIf="dayTrip.activities.length > 0 && tabSelected == 1">
                 <!-- list activities  -->
-                <div class="divItem" *ngFor="let act of dayTrip.activities">
-                    <p (click)="openItemMenu(act)">- {{act.description}}</p>
+                <div class="divItem" *ngFor="let act of dayTrip.activities; let i = index">
+                    <p (click)="openItemMenu(act, i, dayTrip.activities.length, true)">- {{act.description}}</p>
                     <span *ngIf="act.estimatedTime" class="title">Rango de hora estimada: <span
                             class="subtitle">{{act.estimatedTime}} </span> </span>
                     <br>
@@ -37,8 +37,8 @@
             </div>
             <div class="activitiesSection" *ngIf="dayTrip.urls.length > 0 && tabSelected == 2">
                 <!-- list urls  -->
-                <div class="divItem" *ngFor="let url of dayTrip.urls">
-                    <p (click)="openItemMenu(url)">{{url.title}}</p>
+                <div class="divItem" *ngFor="let url of dayTrip.urls; let i = index">
+                    <p (click)="openItemMenu(url, i, dayTrip.urls.length, false)">{{url.title}}</p>
                     <small class="urlText">{{url.url}}</small>
                     <br>
                     <button (click)="redirectToUrl(url.url)">
@@ -48,8 +48,8 @@
             </div>
             <div class="activitiesSection" *ngIf="dayTrip.notes.length > 0 && tabSelected == 3">
                 <!-- list notes  -->
-                <div class="divItem" *ngFor="let note of dayTrip.notes">
-                    <p (click)="openItemMenu(note)">{{note.value}}</p>
+                <div class="divItem" *ngFor="let note of dayTrip.notes; let i = index">
+                    <p (click)="openItemMenu(note, i, dayTrip.notes.length, false)">{{note.value}}</p>
                 </div>
             </div>
         </div>
