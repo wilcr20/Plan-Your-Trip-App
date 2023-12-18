@@ -56,25 +56,7 @@ export class ActivitiesPage implements OnInit {
       this.dayState = params['dayState'];
       this.trip = this.localStorageService.getTrip(this.tripId);
       this.dayTrip = this.trip.daysForTrip.find((t: { fullDate: any; }) => t.fullDate == this.fullDate);
-
-      // --------------- Temporal fix for existing trips
-      // REMOVE IT LATER !!!!
-      let needToUpdate = false;
-      if (!this.dayTrip.notes) {
-        needToUpdate = true;
-        this.dayTrip.notes = [];
-      }
-      if (!this.dayTrip.urls) {
-        needToUpdate = true;
-        this.dayTrip.urls = [];
-      }
-      if (needToUpdate) {
-        let idx = this.getTripIndex(this.dayTrip.fullDate);
-        this.trip.daysForTrip[idx] = this.dayTrip;
-        this.localStorageService.updateTrip(this.trip);
-      }
-       // ---------------
-      
+     
     });
   }
 
@@ -204,15 +186,7 @@ export class ActivitiesPage implements OnInit {
     const alert = await this.alertCtrl.create({
       message: '¿Qué acción desea realizar?',
       mode: 'ios',
-      // cssClass: 'alertQR',
       buttons: [
-        {
-          text: 'Atrás',
-          role: 'cancel',
-          cssClass: 'blackOption',
-          handler: () => {
-          }
-        },
         {
           text: 'Editar',
           cssClass: 'blackOption',

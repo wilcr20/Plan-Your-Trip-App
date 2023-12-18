@@ -58,9 +58,6 @@ export class LocalStorageService {
     if (tripsSaved) {
       let trips = JSON.parse(tripsSaved);
       trips[tripIndex].daysForTrip.find(function (item: any, i: any) {
-        // if (item.id === id) {
-        //   index = i;
-        // }
       });
       return index;
     }

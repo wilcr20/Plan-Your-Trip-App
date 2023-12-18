@@ -13,9 +13,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.platform.backButton.subscribeWithPriority(9999, () => {
         document.addEventListener('backbutton', function (event) {
-          // event.preventDefault();
-          // event.stopPropagation();
-          // alert("No back")
         }, false);
       });
     });
