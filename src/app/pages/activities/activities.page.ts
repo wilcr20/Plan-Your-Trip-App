@@ -85,6 +85,9 @@ export class ActivitiesPage implements OnInit {
       id: new Date().getTime()
     }
     let idx = this.getTripIndex(this.dayTrip.fullDate);
+    if(!this.dayTrip.activities){
+      this.dayTrip.activities = [];
+    }
     this.dayTrip.activities.push(activity);
     this.trip.daysForTrip[idx] = this.dayTrip;
     this.localStorageService.updateTrip(this.trip);
@@ -114,6 +117,9 @@ export class ActivitiesPage implements OnInit {
       id: new Date().getTime()
     }
     let idx = this.getTripIndex(this.dayTrip.fullDate);
+    if(!this.dayTrip.urls){
+      this.dayTrip.urls = [];
+    }
     this.dayTrip.urls.push(url);
     this.trip.daysForTrip[idx] = this.dayTrip;
     this.localStorageService.updateTrip(this.trip);
@@ -137,6 +143,9 @@ export class ActivitiesPage implements OnInit {
       id: new Date().getTime()
     }
     let idx = this.getTripIndex(this.dayTrip.fullDate);
+    if(!this.dayTrip.notes){
+      this.dayTrip.notes = [];
+    }
     this.dayTrip.notes.push(note);
     this.trip.daysForTrip[idx] = this.dayTrip;
     this.localStorageService.updateTrip(this.trip);

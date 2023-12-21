@@ -7,15 +7,15 @@
         </div>
         <hr>
         <div class="noData" *ngIf="!isCreateView && !isEditView">
-            <div *ngIf="dayTrip.activities.length == 0 && tabSelected == 1">
+            <div *ngIf="dayTrip.activities && dayTrip.activities.length == 0 && tabSelected == 1">
                 <h4>No hay actividades para este día.</h4>
                 <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
-            <div *ngIf="dayTrip.urls.length == 0 && tabSelected == 2">
+            <div *ngIf="dayTrip.urls && dayTrip.urls.length == 0 && tabSelected == 2">
                 <h4>No hay links agregados para mostrar.</h4>
                 <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
-            <div *ngIf="dayTrip.notes.length == 0 && tabSelected == 3">
+            <div *ngIf="dayTrip.notes && dayTrip.notes.length == 0 && tabSelected == 3">
                 <h4>No hay notas agregados para mostrar.</h4>
                 <img src="../../../assets/no-task.png" alt="" srcset="">
             </div>
@@ -23,7 +23,7 @@
         </div>
 
         <div *ngIf="!isCreateView && !isEditView">
-            <div class="activitiesSection" *ngIf="dayTrip.activities.length > 0 && tabSelected == 1">
+            <div class="activitiesSection" *ngIf="dayTrip.activities && dayTrip.activities.length > 0 && tabSelected == 1">
                 <!-- list activities  -->
                 <div class="divItem" *ngFor="let act of dayTrip.activities; let i = index">
                     <p (click)="openItemMenu(act, i, dayTrip.activities.length, true)">- {{act.description}}</p>
@@ -35,7 +35,7 @@
                     </button>
                 </div>
             </div>
-            <div class="activitiesSection" *ngIf="dayTrip.urls.length > 0 && tabSelected == 2">
+            <div class="activitiesSection" *ngIf="dayTrip.urls && dayTrip.urls.length > 0 && tabSelected == 2">
                 <!-- list urls  -->
                 <div class="divItem" *ngFor="let url of dayTrip.urls; let i = index">
                     <p (click)="openItemMenu(url, i, dayTrip.urls.length, false)">{{url.title}}</p>
@@ -46,7 +46,7 @@
                     </button>
                 </div>
             </div>
-            <div class="activitiesSection" *ngIf="dayTrip.notes.length > 0 && tabSelected == 3">
+            <div class="activitiesSection" *ngIf="dayTrip.notes && dayTrip.notes.length > 0 && tabSelected == 3">
                 <!-- list notes  -->
                 <div class="divItem" *ngFor="let note of dayTrip.notes; let i = index">
                     <p (click)="openItemMenu(note, i, dayTrip.notes.length, false)">{{note.value}}</p>
