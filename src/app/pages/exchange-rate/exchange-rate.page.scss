@@ -1,0 +1,44 @@
+.loading {
+    text-align: center;
+    position: relative;
+    top: 35%;
+}
+
+
+.main {
+    margin: 2em 2em;
+    text-align: center;
+
+    .clearDataBtn {
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 6px 10px;
+        font-size: 20px;
+        border: 2px solid black;
+        height: 45px;
+        background: #8ffb8f;
+
+    }
+
+    .formItem {
+        text-align: start;
+
+        input {
+            width: 33%;
+            margin-left: 3%;
+        }
+
+        label {
+            color: white;
+            display: inline-block;
+            width: 40px;
+        }
+    }
+
+    .result {
+        color: white;
+        font-size: x-large;
+        text-align: end;
+        margin-top: -9%;
+    }
+}

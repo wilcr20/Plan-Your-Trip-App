@@ -1,9 +1,42 @@
-
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
+
+  <div class="loading" *ngIf="isLoading">
+    <img src="../../../assets/loading.gif" alt="" srcset="">
+  </div>
+
+  <div class="main" *ngIf="!isLoading">
+    <button class="clearDataBtn" (click)="clearData()">Limpiar datos</button>
+
+    <div class="formItem">
+      <div>
+        <label for="">Yen</label>
+        <input [(ngModel)]="yenToUsd_input" [ngModelOptions]="{standalone: true}" type="number" name="">
+        <p class="result">$ {{getRoundValue(yenToUsd_input * JPY_to_USD)}}</p>
+      </div>
+    </div>
+    <div class="formItem">
+      <div>
+        <label for="">USD</label>
+        <input [(ngModel)]="usdToYen_input" [ngModelOptions]="{standalone: true}" type="number" name="">
+        <p class="result">¥ {{getRoundValue(usdToYen_input * USD_to_JPY)}}</p>
+      </div>
+    </div>
+
+    <div class="formItem">
+      <div>
+        <label for="">Yen</label>
+        <input [(ngModel)]="yenToCrc_input" [ngModelOptions]="{standalone: true}" type="number" name="">
+        <p class="result">₡ {{getRoundValue(yenToCrc_input * JPY_to_CRC)}}</p>
+      </div>
+    </div>
+
+    <div class="formItem">
+      <div>
+        <label for="">CRC</label>
+        <input [(ngModel)]="crcToYen_input" [ngModelOptions]="{standalone: true}" type="number" name="">
+        <p class="result">¥ {{getRoundValue(crcToYen_input * CRC_to_JPY)}}</p>
+      </div>
+    </div>
+  </div>
 
 </ion-content>
