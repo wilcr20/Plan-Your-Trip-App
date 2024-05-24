@@ -1,6 +1,10 @@
 <ion-content [fullscreen]="true">
 
   <div class="main">
+    <!-- <div class="nationalTime"  *ngIf="nationalDateCR != ''  && nationalTimeCR != ''"> 
+      <strong>Fecha: </strong> <span> {{nationalDateCR}}</span><br>
+      <strong>Hora: </strong> <span> {{nationalTimeCR}}</span>
+    </div> -->
     <div class="noTrips" *ngIf="trips && trips.length == 0">
       <h4>Aún no tienes viajes programados/en progreso.</h4>
       <br>
@@ -9,10 +13,16 @@
       <button class="createTrip" (click)="redirectToCreateTripView()">
         Agregar nuevo viaje
       </button>
+      <button class="createTrip code" (click)="enterTripCode()">
+        Agregar viaje por código
+      </button>
     </div>
     <div class="listTrips" *ngIf="trips && trips.length > 0">
       <button class="createTrip" (click)="redirectToCreateTripView()">
         Agregar nuevo viaje
+      </button>
+      <button class="createTrip code" (click)="enterTripCode()">
+        Agregar viaje por código
       </button>
       <br>
       <br>

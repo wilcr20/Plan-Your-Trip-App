@@ -50,4 +50,25 @@ export class TripInfoPage implements OnInit {
     this.router.navigate(['tabs/activities', this.trip.id, dayItem.fullDate, dayState ]);
   }
 
+  async shareTrip(){
+    let tripToShare = btoa(JSON.stringify(this.trip))
+    console.log(tripToShare)
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(tripToShare);
+        Swal.fire({
+          icon: 'success',
+          text: 'Código del viaje copaido correctamente',
+          heightAuto: false,
+        });
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          text: 'Ocurrió un error al copiar el código.',
+          heightAuto: false,
+        });
+      }
+    }
+  }
+
 }

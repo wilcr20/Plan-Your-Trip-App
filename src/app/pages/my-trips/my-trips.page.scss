@@ -4,6 +4,11 @@
   text-align: center;
   color: white;
 
+  .nationalTime{
+    margin-top: 2em;
+    margin-bottom: -1em;
+  }
+
   button.createTrip {
     font-size: 20px;
     border: 2px solid #373535;
@@ -13,6 +18,9 @@
     padding: 6px 10px;
     margin-top: 10%;
     height: 45px;
+    &.code{
+      margin-top: 5%;
+    }
   }
 
   .noTrips {
