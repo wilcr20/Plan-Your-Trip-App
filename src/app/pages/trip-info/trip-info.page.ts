@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import Swal from 'sweetalert2';
 
@@ -17,7 +18,7 @@ export class TripInfoPage implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private localStorageService: LocalStorageService,
-
+    private alertCtrl: AlertController,
   ) { 
     this.today = new Date();
   }
@@ -80,6 +81,40 @@ export class TripInfoPage implements OnInit {
 
   redirectToReportPage(){
     this.router.navigate(['report', this.trip.id]);
+  }
+
+  async removeTrip(){
+    const alert = await this.alertCtrl.create({
+      header: '¿Eliminar viaje',
+      message: 'No se podrá volver a recuperar el viaje luego de ser eliminado.',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Si, eliminarlo.',
+          cssClass: 'redOption',
+          handler: () => {
+            this.deleteCurrentTrip()
+          }
+        },
+        {
+          text: 'Cancelar',
+          cssClass: 'blackOption',
+          handler: () => {
+          }
+        }
+      ],
+    });
+    await alert.present();
+  }
+
+  deleteCurrentTrip(){
+    this.localStorageService.removeTrip(this.trip.id);
+    Swal.fire({
+      icon: 'success',
+      text: 'Viaje eliminado correctamente!!',
+      heightAuto: false,
+    });
+    this.router.navigateByUrl("tabs/my-trips");
   }
 
 }

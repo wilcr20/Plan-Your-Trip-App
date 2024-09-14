@@ -62,7 +62,15 @@ export class LocalStorageService {
       return index;
     }
     return undefined;
+  }
 
+  removeTrip(id: number){
+    let tripsSaved = this.getItem("trips");
+    if (tripsSaved) {
+      let trips = JSON.parse(tripsSaved) as Array<any>;
+      trips = trips.filter( trip => trip.id != id);
+      this.updateItem("trips", JSON.stringify(trips))
+    }
   }
 
 }
