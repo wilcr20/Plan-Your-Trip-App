@@ -1,0 +1,60 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>report</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">report</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <div class="main" id="main">
+    <h1>{{trip.name}}</h1>
+    <br>
+    <div class="sectionDay" *ngFor="let day of trip.daysForTrip">
+      <br>
+      <br>
+      <p>- {{day.display}}</p>
+      <table class="table-fill">
+        <thead>
+          <tr>
+            <th class="text-left">Descripción</th>
+            <th class="text-left">Hora estimada</th>
+            <th class="text-left">Localización</th>
+          </tr>
+        </thead>
+        <tbody class="table-hover" *ngFor="let activity of day.activities">
+          <tr>
+            <td class="text-left">{{activity.description}}</td>
+            <td class="text-left">{{activity.estimatedTime}}</td>
+            <td class="text-left">
+              <a href="{{activity.localization}}" >{{activity.localization}}</a> 
+              </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <div *ngIf="day.notes && day.notes.length > 0" class="notes">
+        <p>Notas: </p>
+        <blockquote>
+          <p *ngFor="let note of day.notes">
+            - {{note.value}}
+          </p>
+        </blockquote>
+      </div>
+      <br>
+      <div *ngIf="day.urls && day.urls.length > 0" class="notes">
+        <p>Urls: </p>
+        <blockquote>
+          <p *ngFor="let url of day.urls">
+            - <span>{{url.title }}: </span> <a href="{{url.url}}" target="_blank" rel="noopener noreferrer">{{url.url}}</a> 
+          </p>
+        </blockquote>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

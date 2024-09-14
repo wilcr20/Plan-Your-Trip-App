@@ -50,9 +50,16 @@ export class TripInfoPage implements OnInit {
     this.router.navigate(['tabs/activities', this.trip.id, dayItem.fullDate, dayState ]);
   }
 
+
+  encode(data: any ) {
+    const bytes = new TextEncoder().encode(data);
+    const binString = String.fromCodePoint(...bytes);
+    return btoa(binString);
+  }
+
   async shareTrip(){
-    let tripToShare = btoa(JSON.stringify(this.trip))
-    console.log(tripToShare)
+    let tripToShare = this.encode(JSON.stringify(this.trip))   
+  
     if (navigator.clipboard) {
       try {
         await navigator.clipboard.writeText(tripToShare);
@@ -71,4 +78,10 @@ export class TripInfoPage implements OnInit {
     }
   }
 
+  redirectToReportPage(){
+    this.router.navigate(['report', this.trip.id]);
+  }
+
 }
+
+

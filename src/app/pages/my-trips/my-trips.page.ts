@@ -40,6 +40,14 @@ export class MyTripsPage {
     this.router.navigate(['tabs/trip-info', id]);
   }
 
+
+  decode(base64: any) {
+    const binString = atob(base64);
+    const bytes = Uint8Array.from(binString, (m) => m.codePointAt(0)!);
+    return new TextDecoder().decode(bytes);
+  }
+
+
   enterTripCode() {
     Swal.fire({
       title: "Ingrese el código del viaje",
@@ -51,7 +59,7 @@ export class MyTripsPage {
     }).then((resp) => {
       if (resp.isConfirmed) {
         try {
-          let trip = JSON.parse(atob(resp.value))
+          let trip = JSON.parse(this.decode(resp.value))
           this.registerTripViaCode(trip);
         } catch (error) {
           console.log(error);

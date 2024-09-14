@@ -2,8 +2,8 @@
   <div class="main">
     <h1 *ngIf="trip">{{trip.name}}</h1>
     <br>
-    <div class="item" [ngClass]="{'today': getDayState(day) == 1}" 
-    (click)="redirectToActivitiesByDayView(day, getDayState(day))" *ngFor="let day of trip.daysForTrip">
+    <div class="item" [ngClass]="{'today': getDayState(day) == 1}"
+      (click)="redirectToActivitiesByDayView(day, getDayState(day))" *ngFor="let day of trip.daysForTrip">
       <p>{{day.display}}</p>
       <div class="iconState">
         <img *ngIf="getDayState(day) == 1" src="../../../assets/tick.png" alt="" srcset="">
@@ -12,17 +12,27 @@
       </div>
       <div>
         <div *ngIf="day.activities.length == 0 && getDayState(day) != 2">
-          <small class="noActivity" >Sin actividades agregadas.</small>
+          <small class="noActivity">Sin actividades agregadas.</small>
           <br>
         </div>
-        <small >Click para ver más detalles.</small>
+        <small>Click para ver más detalles.</small>
 
       </div>
     </div>
   </div>
-  <ion-fab  slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="shareTrip()">
-        <ion-icon name="share-social-outline"></ion-icon>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="grid-outline"></ion-icon>
     </ion-fab-button>
-</ion-fab>
+
+
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="shareTrip()">
+        <ion-icon name="share-social-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="redirectToReportPage()">
+        <ion-icon name="document-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
