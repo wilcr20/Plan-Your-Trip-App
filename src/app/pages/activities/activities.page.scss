@@ -40,52 +40,56 @@
         }
     }
 
-    .divItem {
-        border: 2px solid orange;
-        background-color: whitesmoke;
-        color: black;
-        margin: 1em 0;
-        padding-left: 10px;
-        text-align: start;
-        display: grid;
-        
-
-        p {
-            font-style: italic;
-            width: 90%;
-        }
-
-        small {
-            &.urlText {
-                width: 85%;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                text-overflow: ellipsis;
+    .activitiesSection{
+        margin-bottom: 3.5em;
+        .divItem {
+            border: 2px solid orange;
+            background-color: whitesmoke;
+            color: black;
+            margin: 1em 0;
+            padding-left: 10px;
+            text-align: start;
+            display: grid;
+            
+    
+            p {
+                font-style: italic;
+                width: 88%;
             }
-        }
-
-        span {
-            font-size: small;
-
-            &.title {
-                font-weight: bold;
+    
+            small {
+                &.urlText {
+                    width: 85%;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
-
-            &.subtitle {
-                font-weight: lighter;
+    
+            span {
+                font-size: small;
+    
+                &.title {
+                    font-weight: bold;
+                }
+    
+                &.subtitle {
+                    font-weight: lighter;
+                }
             }
-        }
-
-        button {
-            width: 10%;
-            border: 2px solid;
-            position: absolute;
-            border-radius: 5px;
-            right: 0;
+    
+            button {
+                width: 10%;
+                border: 2px solid;
+                position: absolute;
+                border-radius: 5px;
+                right: 0;
+            }
         }
     }
+    
 
 
 

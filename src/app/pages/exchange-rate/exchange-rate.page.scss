@@ -33,12 +33,17 @@
             display: inline-block;
             width: 40px;
         }
+        hr{
+            border-width: 1px;
+            height: 0;
+            border-bottom: 0px solid #ff0505;
+        }
     }
 
     .result {
         color: white;
         font-size: x-large;
         text-align: end;
-        margin-top: -9%;
+        margin-top: -13%;
     }
 }

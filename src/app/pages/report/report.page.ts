@@ -12,7 +12,6 @@ import { jsPDF } from 'jspdf';
 export class ReportPage implements OnInit {
 
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private localStorageService: LocalStorageService,
   ) { }
@@ -24,13 +23,12 @@ export class ReportPage implements OnInit {
     this.sub = this.activatedRoute.params.subscribe((params: { [x: string]: any; }) => {
       let id = params['id'];
       this.trip = this.localStorageService.getTrip(id);
-      console.log(this.trip);
 
       setTimeout(() => {
         const html = document.getElementById("main") as HTMLElement
-        const doc = new jsPDF('l', 'mm', [1100, 1110]);
+        const doc = new jsPDF('l');
         let fileName = new Date().toLocaleString().replace(/, /g, "_") + '.pdf'
-        doc.html(html, { html2canvas:{scale:0.4}}).then(() => {
+        doc.html(html, { html2canvas:{scale:0.3 }}).then(() => {
           doc.save(fileName);
         });
       }, 500);

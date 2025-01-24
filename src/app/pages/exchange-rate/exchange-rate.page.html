@@ -13,6 +13,7 @@
         <input [(ngModel)]="yenToUsd_input" [ngModelOptions]="{standalone: true}" type="number" name="">
         <p class="result">$ {{getRoundValue(yenToUsd_input * JPY_to_USD)}}</p>
       </div>
+      <hr>
     </div>
     <div class="formItem">
       <div>
@@ -20,6 +21,7 @@
         <input [(ngModel)]="usdToYen_input" [ngModelOptions]="{standalone: true}" type="number" name="">
         <p class="result">¥ {{getRoundValue(usdToYen_input * USD_to_JPY)}}</p>
       </div>
+      <hr>
     </div>
 
     <div class="formItem">
@@ -28,6 +30,7 @@
         <input [(ngModel)]="yenToCrc_input" [ngModelOptions]="{standalone: true}" type="number" name="">
         <p class="result">₡ {{getRoundValue(yenToCrc_input * JPY_to_CRC)}}</p>
       </div>
+      <hr>
     </div>
 
     <div class="formItem">
@@ -36,6 +39,7 @@
         <input [(ngModel)]="crcToYen_input" [ngModelOptions]="{standalone: true}" type="number" name="">
         <p class="result">¥ {{getRoundValue(crcToYen_input * CRC_to_JPY)}}</p>
       </div>
+      <hr>
     </div>
   </div>
 

@@ -20,14 +20,15 @@ export class MyTripsPage {
 
   ionViewWillEnter() {
     clearInterval(this.timeUpdate);
-    this.timeUpdate = setInterval(() => {
-      let today = new Date().toISOString();
-      this.nationalDateCR = today.split("T")[0];
-      this.nationalTimeCR = today.split("T")[1].split(".")[0];
-    }, 1000);
+    // this.timeUpdate = setInterval(() => {
+    //   let today = new Date().toISOString();
+    //   this.nationalDateCR = today.split("T")[0];
+    //   this.nationalTimeCR = today.split("T")[1].split(".")[0];
+    // }, 1000);
 
     let tripsSaved = this.localStorageService.getItem("trips");
     if (tripsSaved) {
+      // Just added to hide existing trip
       this.trips = JSON.parse(tripsSaved).reverse();
     }
   }
@@ -62,8 +63,6 @@ export class MyTripsPage {
           let trip = JSON.parse(this.decode(resp.value))
           this.registerTripViaCode(trip);
         } catch (error) {
-          console.log(error);
-          
           Swal.fire({
             icon: 'error',
             text: 'Se ha ingresado un código inválido, intente de nuevo.',

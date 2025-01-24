@@ -63,8 +63,6 @@ export class ExchangeRatePage {
   }
 
   getRoundValue(value: number) {
-    console.log(value);
-
     return Math.floor(value * 100) / 100
   }
 
